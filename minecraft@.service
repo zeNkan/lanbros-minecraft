@@ -1,0 +1,46 @@
+[Unit]
+Description=LanBros paper %i server
+Requires=network-online.target
+
+[Service]
+
+# Setup Working Directory and User+Group
+WorkingDirectory=/opt/minecraft/%i
+User=minecraft
+Group=minecraft
+
+# Fork this piece of sweet tmux
+Type=forking
+
+# /home, /root and /run/user seem to be empty from within the unit. It is recommended to enable this setting for all long-running services (in particular network-facing ones).
+ProtectHome=true
+
+# /proc/sys, /sys, /proc/sysrq-trigger, /proc/latency_stats, /proc/acpi, /proc/timer_stats, /proc/fs and /proc/irq will be read-only within the unit. It is recommended to turn this on for most services.
+# Implies MountFlags=slave
+ProtectKernelTunables=true
+
+# Block module system calls, also /usr/lib/modules. It is recommended to turn this on for most services that do not need special file systems or extra kernel modules to work
+# Implies NoNewPrivileges=yes
+ProtectKernelModules=true
+
+# It is hence recommended to turn this on for most services.
+# Implies MountAPIVFS=yes
+ProtectControlGroups=true
+
+# Set default memory values
+Environment="MCMAXMEM=6G" "SHUTDOWN_DELAY=10" "POST_SHUTDOWN_DELAY=10"
+
+ExecStart=/usr/bin/tmux new-s -s minecraft -d '/usr/bin/java -Xmx2G -jar /opt/minecraft/%i/paper.jar nogui'
+ExecStartPost=/bin/tmux splitw -p 50 -t minecraft:0
+
+ExecStop=/bin/tmux send-keys -t minecraft:0.0 'say SERVER SHUTTING DOWN in ${SHUTDOWN_DELAY}' C-m
+ExecStop=/bin/sleep ${POST_SHUTDOWN_DELAY}
+ExecStop=/bin/tmux send-keys -t minecraft:0.0 'save-all' C-m 'stop' C-m
+ExecStop=/bin/sleep 2
+ExecStop=/bin/tmux kill-session -t minecraft
+
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
