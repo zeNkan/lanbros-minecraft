@@ -1,2 +1,1 @@
-# lanbros-minecraft
-LanBros Minecraft Server Configuration Files
+# LanBros Survival Minecraft Server Configuration
