@@ -1,0 +1,19 @@
+---
+- name: Create the Minecraft Server User
+  user:
+    comment: Minecraft Service User
+    name: "{{ service_username }}"
+    create_home: yes
+    home: "{{ home_directory }}"
+
+- name: Install Git
+  ansible.builtin.package:
+    name: java-17-openjdk
+    state: present
+
+- name: Git Checkout LanBros Minecraft Directory
+  git:
+    repo: 'https://github.com/zeNkan/lanbros-minecraft.git'
+    dest: "{{ repo_directory }}"
+  become: yes
+  become_user: "{{ service_username }}"

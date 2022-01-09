@@ -1,0 +1,9 @@
+[Unit]
+Description=Lanbros Survival Backup
+
+[Service]
+Type=oneshot
+User=minecraft
+Group=minecraft
+WorkingDirectory={{ repo_directory }}
+ExecStart=/bin/bash {{ scripts_directory}}/backup.sh

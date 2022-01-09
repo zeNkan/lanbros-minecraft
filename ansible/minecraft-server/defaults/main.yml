@@ -1,0 +1,20 @@
+# Service username and group belonging
+service_username: "minecraft"
+service_group: "minecraft"
+
+# World name
+server_name: "LanBros Minecraft Server"
+world_name: "lanbros_survival"
+
+# Important directories
+home_directory: "/opt/minecraft"
+repo_directory: "{{ home_directory }}/repo"
+server_directory: "{{ repo_directory }}/{{ world_name }}"
+scripts_directory: "{{ repo_directory }}/scripts"
+
+# jvm memory util and optmisation flags
+jvm_options: "-Xmx7G -Xms7G"
+
+# Ports
+server_port: "25565"
+query_port: "25565"

@@ -1,0 +1,14 @@
+[Unit]
+Description={{ server_name }}
+After=network.target
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory={{ server_directory }}
+ExecStart=/usr/bin/java {{ jvm_options }} -jar server.jar nogui
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

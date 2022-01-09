@@ -1,0 +1,9 @@
+[Unit]
+Description=Hourly Backups of {{ server_name }}
+
+[Timer]
+OnCalendar=00/3:30
+
+[Install]
+WantedBy=timers.target
+

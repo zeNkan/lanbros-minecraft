@@ -1,0 +1,18 @@
+---
+- name: Download Minecraft Server Jar
+  get_url:
+    url: https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar
+    dest: "{{ server_directory }}/server.jar"
+    mode: '0711'
+  become: yes
+  become_user: "{{ service_username }}"
+
+- name: Install server.properties File
+  template:
+    src: server.properties.j2
+    dest: "{{ server_directory }}/server.properties"
+    owner: "{{ service_username }}"
+    group: "{{ service_group }}"
+    mode: 0644
+
+

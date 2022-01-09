@@ -1,0 +1,44 @@
+---
+- name: Install Systemd Unit Files
+  template:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item[:-3] }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - minecraft-backup.service.j2
+    - minecraft-backup.timer.j2
+    - minecraft.service.j2
+    - minecraft.timer.j2
+
+- name: Enable Service and Timer
+  systemd:
+    state: started
+    enabled: yes
+    daemon_reload: yes
+    name: "{{ item }}"
+  loop:
+    - minecraft.service
+    - minecraft.timer
+
+- name: Install Firewall Service File
+  template:
+    src: firewall-config.xml.j2
+    dest: "/etc/firewalld/services/{{ world_name }}.xml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload Firewall
+  systemd:
+    name: firewalld
+    state: reloaded
+
+# The service is being referred to the name of the xml file
+# with out the .xml ending
+- name: Enable Service in Firewall
+  firewalld:
+    service: "{{ world_name }}"
+    permanent: yes
+    state: enabled
