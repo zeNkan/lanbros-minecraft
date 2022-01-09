@@ -1,0 +1,6 @@
+lanbros_survival/*
+!lanbros_survival/whitelist.json
+!lanbros_survival/ops.json
+!lanbros_survival/eula.txt
+!lanbros_survival/banned-players.json
+!lanbros_survival/banned-ips.json
