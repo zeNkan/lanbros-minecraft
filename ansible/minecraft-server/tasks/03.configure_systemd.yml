@@ -11,6 +11,7 @@
     - minecraft-backup.timer.j2
     - minecraft.service.j2
     - minecraft.timer.j2
+  become: yes
 
 - name: Enable Service and Timer
   systemd:
@@ -21,6 +22,7 @@
   loop:
     - minecraft.service
     - minecraft.timer
+  become: yes
 
 - name: Install Firewall Service File
   template:
@@ -42,3 +44,4 @@
     service: "{{ world_name }}"
     permanent: yes
     state: enabled
+  become: yes

@@ -5,11 +5,13 @@
     name: "{{ service_username }}"
     create_home: yes
     home: "{{ home_directory }}"
+  become: yes
 
 - name: Install Git
-  ansible.builtin.package:
+  package:
     name: java-17-openjdk
     state: present
+  become: yes
 
 - name: Git Checkout LanBros Minecraft Directory
   git:
