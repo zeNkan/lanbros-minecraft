@@ -9,7 +9,7 @@ world_name: "lanbros_survival"
 # Important directories
 home_directory: "/opt/minecraft"
 repo_directory: "{{ home_directory }}/repo"
-server_directory: "{{ repo_directory }}/{{ world_name }}"
+server_directory: "{{ repo_directory }}/server_root"
 scripts_directory: "{{ repo_directory }}/scripts"
 
 # jvm memory util and optmisation flags
