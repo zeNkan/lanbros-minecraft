@@ -31,11 +31,13 @@
     owner: root
     group: root
     mode: 0644
+  become: yes
 
 - name: Reload Firewall
   systemd:
     name: firewalld
     state: reloaded
+  become: yes
 
 # The service is being referred to the name of the xml file
 # with out the .xml ending
