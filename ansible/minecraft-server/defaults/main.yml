@@ -19,3 +19,6 @@ jvm_options: "-Xmx7G -Xms7G"
 # Ports
 server_port: "25565"
 query_port: "25565"
+
+# Webhook
+webhook_port: "8080"

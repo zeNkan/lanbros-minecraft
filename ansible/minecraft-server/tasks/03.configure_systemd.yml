@@ -26,7 +26,7 @@
 
 - name: Install Firewall Service File
   template:
-    src: firewall-config.xml.j2
+    src: minecraft-firewall-config.xml.j2
     dest: "/etc/firewalld/services/{{ world_name }}.xml"
     owner: root
     group: root

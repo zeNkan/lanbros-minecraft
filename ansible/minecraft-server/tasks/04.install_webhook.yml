@@ -26,3 +26,28 @@
     enabled: yes
   become: yes
 
+- name: Install Firewall Service File
+  template:
+    src: firewall-config.xml.j2
+    dest: "/etc/firewalld/services/webhook.xml"
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+
+- name: Reload Firewall
+  systemd:
+    name: firewalld
+    state: reloaded
+  become: yes
+
+# The service is being referred to the name of the xml file
+# with out the .xml ending
+- name: Enable Service in Firewall
+  firewalld:
+    service: "webhook"
+    permanent: yes
+    state: enabled
+  become: yes
+
+

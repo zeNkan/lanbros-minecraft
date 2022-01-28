@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+ <short>webhook</short>
+ <description>Minecraft Webhook</description>
+ <port protocol="tcp" port="{{ webhook_port }}" />
+</service>
