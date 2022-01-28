@@ -21,7 +21,7 @@
 
 - name: Enable and Start the Service
   ansible.builtin.systemd:
-    name: "webhook.service.j2"
+    name: "webhook.service"
     state: started
     enabled: yes
   become: yes

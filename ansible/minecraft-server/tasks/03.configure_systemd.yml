@@ -55,8 +55,8 @@
     state: started
     enabled: yes
   loop:
-    - minecraft-backup.service.j2
-    - minecraft-backup.timer.j2
-    - minecraft.service.j2
-    - minecraft.timer.j2
+    - minecraft-backup.service
+    - minecraft-backup.timer
+    - minecraft.service
+    - minecraft.timer
   become: yes
