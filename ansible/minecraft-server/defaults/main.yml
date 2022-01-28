@@ -11,7 +11,7 @@ home_directory: "/opt/minecraft"
 repo_directory: "{{ home_directory }}/repo"
 server_directory: "{{ repo_directory }}/server_root"
 scripts_directory: "{{ repo_directory }}/scripts"
-webhook_directory: "{{ repo_directory }}/webhook"
+webhook_directory: "{{ repo_directory }}/webhook/src"
 
 # jvm memory util and optmisation flags
 jvm_options: "-Xmx7G -Xms7G"

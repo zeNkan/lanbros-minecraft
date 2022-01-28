@@ -9,6 +9,8 @@
   shell: 
     chdir: "{{ webhook_directory }}"
     cmd: "go build -o webhook ."
+  become: yes
+  become_user: minecraft
 
 - name: Install Systemd Unit File
   template:
