@@ -1,4 +1,5 @@
 ---
 - include_tasks: 01.create_user_directory.yml
 - include_tasks: 02.download_server.yml
-- include_tasks: ./03.configure_systemd.yml
+- include_tasks: 03.configure_systemd.yml
+- include_tasks: ./04.install_webhook.yml
