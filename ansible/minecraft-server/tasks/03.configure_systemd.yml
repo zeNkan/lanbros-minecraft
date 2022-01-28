@@ -47,3 +47,16 @@
     permanent: yes
     state: enabled
   become: yes
+
+
+- name: Enable and Start the Services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - minecraft-backup.service.j2
+    - minecraft-backup.timer.j2
+    - minecraft.service.j2
+    - minecraft.timer.j2
+  become: yes

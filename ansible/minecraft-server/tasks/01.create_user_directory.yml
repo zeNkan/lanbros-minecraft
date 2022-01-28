@@ -7,7 +7,7 @@
     home: "{{ home_directory }}"
   become: yes
 
-- name: Install Git
+- name: Install Java
   package:
     name: java-17-openjdk
     state: present

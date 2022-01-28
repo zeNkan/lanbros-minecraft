@@ -1,0 +1,14 @@
+[Unit]
+Description={{ server_name }} webhook
+After=network.target
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory={{ webhook_directory }}
+ExecStart={{ webhook_directory}}/webhook
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
