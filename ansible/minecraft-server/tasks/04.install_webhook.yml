@@ -28,7 +28,7 @@
 
 - name: Install Firewall Service File
   template:
-    src: firewall-config.xml.j2
+    src: webhook-firewall-config.xml.j2
     dest: "/etc/firewalld/services/webhook.xml"
     owner: root
     group: root
