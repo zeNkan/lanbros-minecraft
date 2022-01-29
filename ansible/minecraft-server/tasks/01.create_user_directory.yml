@@ -4,6 +4,8 @@
     that:
       - rcon is defined
       - jvm_ram is defined
+      - webhook_id is defined
+      - webhook_secret is defined
 
 - name: Create the Minecraft Server User
   user:
