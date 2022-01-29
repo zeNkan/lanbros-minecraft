@@ -1,4 +1,10 @@
 ---
+- name: Required variables
+  assert:
+    that:
+      - rcon is defined
+      - jvm_ram is defined
+
 - name: Create the Minecraft Server User
   user:
     comment: Minecraft Service User
