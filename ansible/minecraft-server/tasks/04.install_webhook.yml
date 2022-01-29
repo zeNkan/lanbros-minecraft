@@ -8,7 +8,7 @@
 - name: Build Webhook
   shell: 
     chdir: "{{ webhook_directory }}"
-    cmd: "go build -o webhook ."
+    cmd: "go build -o ../webhook ."
   become: yes
   become_user: minecraft
 
