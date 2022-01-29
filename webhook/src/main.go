@@ -7,10 +7,14 @@ import (
   "os"
 	"os/exec"
   "path/filepath"
+
+  "github.com/willroberts/minecraft-client"
 )
 
-var EXPECTED_ID = "asd123"
-var EXPECTED_SECRET = "SUPERPOJKEN"
+var ID string
+var SECRET string
+var RCON string
+var RCON_PORT string
 
 type webhook struct {
     Action string
@@ -31,7 +35,7 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
     // Allways respond as json
     w.Header().Set("Content-Type", "application/json")
 
-    if !provided || id != EXPECTED_ID || secret != EXPECTED_SECRET {
+    if !provided || id != ID || secret != SECRET {
         log.Printf("Request unauthenticated!")
 
         msg, _ := json.Marshal(response{
@@ -79,9 +83,28 @@ func triggerPull() (error) {
     return err
 }
 
+func reloadServer() {
+    client, err := minecraft.NewClient("127.0.0.1:" + RCON_PORT)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer client.Close()
+    
+    // Send some commands.
+    if err := client.Authenticate(RCON); err != nil {
+        log.Fatal(err)
+    }
+
+    resp, err := client.SendCommand("whitelist reload")
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Printf(resp.Body)
+}
+
 func main() {
     log.Println("server started")
     http.HandleFunc("/webhook", handleWebhook)
     log.Fatal(http.ListenAndServe(":8080", nil))
 }
-
