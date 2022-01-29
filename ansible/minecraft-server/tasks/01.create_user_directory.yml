@@ -3,6 +3,7 @@
   assert:
     that:
       - rcon is defined
+      - rcon_port is defined
       - jvm_ram is defined
       - webhook_id is defined
       - webhook_secret is defined
