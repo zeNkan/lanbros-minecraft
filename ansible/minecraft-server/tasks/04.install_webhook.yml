@@ -10,7 +10,7 @@
     chdir: "{{ webhook_directory }}/src"
     cmd: > 
       go build -o ../webhook -ldpath 
-      '-X main.RCON="{{ rcon }}" -X main.ID="{{ webhook_id }}" -X main.SECRET="{{ webhook_secret}}"' .
+      '-X main.RCON="{{ rcon }}" -X main.RCON_PORT="{{ rcon_port }}"-X main.ID="{{ webhook_id }}" -X main.SECRET="{{ webhook_secret }}"' .
   become: yes
   become_user: minecraft
 
