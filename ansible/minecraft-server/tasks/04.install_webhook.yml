@@ -7,15 +7,27 @@
 
 - name: Build Webhook
   shell: 
-    chdir: "{{ webhook_directory }}"
+    chdir: "{{ webhook_directory }}/src"
     cmd: "go build -o ../webhook ."
   become: yes
   become_user: minecraft
 
+# SELinux wont allow systemctl to execute a file with
+# user_home_t type as it indicates the user is part of a home directory
+# Changing the type of the webhook binary to the standard bin_t fixes that
+- name: Set executable to bin_t
+  file:
+    path: "{{ webhook_directory }}/webhook"
+    seuser: unconfined_u
+    serole: object_r
+    setype: bin_t
+    mode: 0700
+  become: yes
+
 - name: Install Systemd Unit File
   template:
-    src: "webhook.service.j2"
-    dest: "/etc/systemd/system/webhook.service"
+    src: webhook.service.j2
+    dest: /etc/systemd/system/webhook.service
     owner: root
     group: root
     mode: 0644
@@ -23,7 +35,7 @@
 
 - name: Enable and Start the Service
   ansible.builtin.systemd:
-    name: "webhook.service"
+    name: webhook.service
     state: started
     enabled: yes
   become: yes
@@ -31,7 +43,7 @@
 - name: Install Firewall Service File
   template:
     src: webhook-firewall-config.xml.j2
-    dest: "/etc/firewalld/services/webhook.xml"
+    dest: /etc/firewalld/services/webhook.xml
     owner: root
     group: root
     mode: 0644
@@ -47,7 +59,7 @@
 # with out the .xml ending
 - name: Enable Service in Firewall
   firewalld:
-    service: "webhook"
+    service: webhook
     permanent: yes
     state: enabled
   become: yes
