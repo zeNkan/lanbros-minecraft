@@ -13,12 +13,10 @@ server_directory: "{{ repo_directory }}/server_root"
 scripts_directory: "{{ repo_directory }}/scripts"
 webhook_directory: "{{ repo_directory }}/webhook"
 
-# jvm memory util and optmisation flags
-jvm_options: "-Xmx7G -Xms7G"
-
 # Ports
 server_port: "25565"
 query_port: "25565"
+rcon_port: "25567"
 
 # Webhook
 webhook_port: "8080"
