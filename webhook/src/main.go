@@ -4,10 +4,11 @@ import (
   "encoding/json"
 	"log"
 	"net/http"
+  "os"
 	"os/exec"
+  "path/filepath"
 )
 
-var REPO_PATH = "/Users/larsbackman/Documents/Sandbox/test"
 var EXPECTED_ID = "asd123"
 var EXPECTED_SECRET = "SUPERPOJKEN"
 
@@ -61,9 +62,16 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 }
 
 func triggerPull() (error) {
+    ex, err := os.Executable()
+    if err != nil {
+        panic(err)
+    }
+    exPath := filepath.Dir(ex)
+
     cmd := exec.Command("git", "pull", "-r")
+
     // Sett CWD
-    cmd.Dir = REPO_PATH
+    cmd.Dir = exPath
     log.Printf("Running command and waiting for it to finish...")
     out, err := cmd.Output()
     log.Printf("Command finished with error: %v", err)
