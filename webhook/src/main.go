@@ -57,8 +57,19 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
         return
     }
 
+    err = reloadServer()
+    if err != nil {
+        log.Fatal(err)
+        msg, _ := json.Marshal(response{
+            Msg: "RCON reload failed",
+        })
+
+        http.Error(w, string(msg), http.StatusInternalServerError)
+        return
+    }
+
     msg, _ := json.Marshal(response{
-        Msg: "Git pull successful",
+        Msg: "Successful",
     })
 
     http.Error(w, string(msg), http.StatusOK)
@@ -79,28 +90,32 @@ func triggerPull() (error) {
     log.Printf("Running command and waiting for it to finish...")
     out, err := cmd.Output()
     log.Printf("Command finished with error: %v", err)
-    log.Printf("Output: %s", out)
+    log.Printf("Outpu: %s", out)
     return err
 }
 
-func reloadServer() {
+func reloadServer() (error) {
+    log.Printf("Reloading Server")
     client, err := minecraft.NewClient("127.0.0.1:" + RCON_PORT)
 
     if err != nil {
-        log.Fatal(err)
+        return err
     }
+
     defer client.Close()
-    
+
     // Send some commands.
     if err := client.Authenticate(RCON); err != nil {
-        log.Fatal(err)
+        return err
     }
 
     resp, err := client.SendCommand("whitelist reload")
     if err != nil {
-        log.Fatal(err)
+        return err
     }
+
     log.Printf(resp.Body)
+    return nil
 }
 
 func main() {
