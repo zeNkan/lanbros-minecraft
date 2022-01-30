@@ -49,10 +49,9 @@
   become: yes
 
 
-- name: Enable and Start the Services
+- name: Enable the Services
   ansible.builtin.systemd:
     name: "{{ item }}"
-    state: started
     enabled: yes
   loop:
     - minecraft-backup.service
