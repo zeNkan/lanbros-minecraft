@@ -12,17 +12,6 @@
     - minecraft.service.j2
   become: yes
 
-- name: Enable Service and Timer
-  systemd:
-    state: started
-    enabled: yes
-    daemon_reload: yes
-    name: "{{ item }}"
-  loop:
-    - minecraft.service
-    - minecraft.timer
-  become: yes
-
 - name: Install Firewall Service File
   template:
     src: minecraft-firewall-config.xml.j2
