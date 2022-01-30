@@ -56,5 +56,4 @@
     - minecraft-backup.service
     - minecraft-backup.timer
     - minecraft.service
-    - minecraft.timer
   become: yes
