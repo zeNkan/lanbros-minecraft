@@ -1,55 +1,65 @@
 #Minecraft server properties
 #Sun Jan 02 18:03:52 CET 2022
-enable-jmx-monitoring=false
-rcon.port=25575
-level-seed=
-gamemode=survival
-enable-command-block=false
-enable-query=true
-generator-settings=
-level-name={{ world_name }}
-motd={{ server_name }}
-query.port={{ query_port }}
-pvp=true
-generate-structures=true
-difficulty=hard
-network-compression-threshold=256
-max-tick-time=60000
-require-resource-pack=false
-max-players=20
-use-native-transport=true
-online-mode=true
-enable-status=true
+
+# General Settings
 allow-flight=false
-broadcast-rcon-to-ops=true
-view-distance=10
-resource-pack-prompt=
-server-ip=0.0.0.0
-allow-nether=true
-server-port={{ server_port }}
-enable-rcon=false
-sync-chunk-writes=true
-op-permission-level=3
-prevent-proxy-connections=false
-hide-online-players=false
-resource-pack=
-entity-broadcast-range-percentage=100
-simulation-distance=10
-rcon.password=
-player-idle-timeout=0
-force-gamemode=false
-rate-limit=0
-hardcore=false
-white-list=true
 broadcast-console-to-ops=true
-spawn-npcs=true
-spawn-animals=true
-snooper-enabled=true
+enable-command-block=false
+enable-jmx-monitoring=false
+enable-status=true
+force-gamemode=false
 function-permission-level=2
-level-type=default
-text-filtering-config=
-spawn-monsters=true
-enforce-whitelist=false
-resource-pack-sha1=
-spawn-protection=16
+generator-settings=
+generate-structures=true
+hide-online-players=false
+max-players=20
 max-world-size=29999984
+motd={{ server_name }}
+resource-pack-prompt=
+max-tick-time=60000
+player-idle-timeout=0
+resource-pack=
+resource-pack-sha1=
+require-resource-pack=false
+simulation-distance=10
+sync-chunk-writes=true
+snooper-enabled=true
+text-filtering-config=
+view-distance=10
+
+# Network
+entity-broadcast-range-percentage=100
+network-compression-threshold=256
+online-mode=true
+prevent-proxy-connections=false
+query.port={{ query_port }}
+rate-limit=0
+rcon.port={{ rcon_port }}
+server-ip=0.0.0.0
+server-port={{ server_port }}
+use-native-transport=true
+
+# RCON 
+broadcast-rcon-to-ops=true
+enable-rcon=true
+rcon.password={{ rcon }}
+
+# Level settings
+allow-nether=true
+difficulty=hard
+gamemode=survival
+hardcore=false
+level-seed=
+level-name={{ world_name }}
+level-type=default
+pvp=true
+spawn-animals=true
+spawn-monsters=true
+spawn-npcs=true
+spawn-protection=16
+
+# Administrative Settings
+enable-query=true
+enforce-whitelist=false
+op-permission-level=3
+white-list=true
