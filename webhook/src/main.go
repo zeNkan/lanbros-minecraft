@@ -1,17 +1,18 @@
 package main
 
 import (
-  "encoding/json"
-	"log"
-	"net/http"
-  "os"
-	"os/exec"
-  "path/filepath"
+    "encoding/json"
+    "log"
+    "net/http"
+    "os"
+    "io"
+    "os/exec"
+    "path/filepath"
 
-  "github.com/willroberts/minecraft-client"
+    "github.com/willroberts/minecraft-client"
+    "github.com/alexellis/hmac"
 )
 
-var ID string
 var SECRET string
 var RCON string
 var RCON_PORT string
@@ -30,13 +31,15 @@ type response struct {
 
 func handleWebhook(w http.ResponseWriter, r *http.Request) {
     log.Printf("Request received")
-    id, secret, provided := r.BasicAuth()
 
     // Allways respond as json
     w.Header().Set("Content-Type", "application/json")
 
-    if !provided || id != ID || secret != SECRET {
-        log.Printf("Request unauthenticated!")
+    signature :=r.Header.Get("X-Hub-Signature") 
+    body, _ := io.ReadAll(r.Body)
+    validate :=hmac.Validate(body, signature, SECRET)
+    if validate != nil{
+        log.Printf("Request unauthenticated! %v", validate.Error())
 
         msg, _ := json.Marshal(response{
             Msg: "Unauthenticated",
@@ -90,7 +93,7 @@ func triggerPull() (error) {
     log.Printf("Running command and waiting for it to finish...")
     out, err := cmd.Output()
     log.Printf("Command finished with error: %v", err)
-    log.Printf("Outpu: %s", out)
+    log.Printf("Output: %s", out)
     return err
 }
 
