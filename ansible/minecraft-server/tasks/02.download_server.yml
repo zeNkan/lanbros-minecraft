@@ -1,7 +1,7 @@
 ---
 - name: Download Minecraft Server Jar
   get_url:
-    url: https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar
+    url: https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar
     dest: "{{ server_directory }}/server.jar"
     mode: '0711'
   become: yes
