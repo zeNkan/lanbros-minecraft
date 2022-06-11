@@ -37,9 +37,12 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 
     signature :=r.Header.Get("X-Hub-Signature") 
     body, _ := io.ReadAll(r.Body)
-    validate :=hmac.Validate(body, signature, SECRET)
+    validate := hmac.Validate(body, signature, SECRET)
     if validate != nil{
-        log.Printf("Request unauthenticated! %v", validate.Error())
+        log.Printf(
+            "Request unauthenticated! %v",
+            validate.Error(),
+        )
 
         msg, _ := json.Marshal(response{
             Msg: "Unauthenticated",
